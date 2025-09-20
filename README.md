@@ -5,7 +5,11 @@ https://github.com/user-attachments/assets/e045e48d-efd4-4964-adea-7e625b7f81a8
 Persona demo: 
 
 
-Uploading Screen Recording 2025-09-21 035917.mp4…
+
+https://github.com/user-attachments/assets/8a0a1605-5efd-49dc-9c36-c3784b58ff79
+
+
+
 
 IMPORTANT GUIDE: 
  - Persona feature
