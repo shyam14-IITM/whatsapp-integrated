@@ -17,4 +17,6 @@ Project
 
 -    image caption feature
        - incomplete as of now
+       - cloudinary and keys from twilio needed to access the secured image url
+       - extract image url and provide it to AIModel using cloudinary
 
