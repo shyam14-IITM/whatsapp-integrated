@@ -19,6 +19,7 @@ IMPORTANT GUIDE:
 Project
 - Express Backend
 - Mongo - for storing messages
+- ngrok to host the server to connect with twilio
 - twilio for whatsapp integration
 - grop ai model from Langchain
 
