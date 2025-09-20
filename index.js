@@ -35,10 +35,19 @@ async function downloadMedia(url) {
   });
   return response.data; // Buffer
 }
+ const personas = ['motivational_speaker', 'tech_tutor', 'rude', 'comedian'];
+const setPersona = (mseg)=>{
+    mseg = mseg.trim().toLowerCase()
+    if (personas.includes(mseg)) return mseg;
+    return null;
+}
+
 app.post("/webhook", async (req, res) => {
   const twiml = new MessagingResponse();
   userConvo = null;
   try {
+   
+
     const from = req.body.From;
     const body = req.body.Body;
     const mediaType = req.body.MediaContentType0;
@@ -65,11 +74,16 @@ app.post("/webhook", async (req, res) => {
       let prompt = {
         role: "system",
         content:
-          "You are a helpful whatsapp chatbot that gives replies of less than 100 words",
+          `You are a helpful whatsapp chatbot and that gives replies of less than 100 words`,
       };
+      if(!setPersona(body)){
+          prompt.content =
+          `You are a helpful whatsapp chatbot with persona : ${setPersona(body)} that gives replies of less than 100 words`;
+        }
 
       userConvo = await Conversation.findOne({ sessionId: from });
       if (!userConvo) {
+        
         userConvo = await Conversation.create({
           sessionId: from,
           messages: [prompt, newUserMseg],
@@ -82,16 +96,16 @@ app.post("/webhook", async (req, res) => {
       if (userConvo.messages.length <= 22) {
         last11turns.push(...userConvo.messages);
       } else last11turns.push(...userConvo.messages.slice(-22));
-
+      
       console.log("last11", last11turns);
       const toLLM = last11turns.map((msg) => {
         return { role: msg.role, content: msg.content };
       });
-
+      if (!setPersona(body)) toLLM.push(prompt);
       console.log("toLLM", toLLM);
       const response = await llm.invoke(toLLM);
 
-      if (reply === "") reply = response.content;
+      if (reply === "") reply = setPersona(body) ? `Persona set to ${setPersona(body)} ` : response.content;
     }
 
     console.log(reply);
