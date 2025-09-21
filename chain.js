@@ -1,6 +1,4 @@
 const { ChatGroq } = require("@langchain/groq");
-const { ConversationChain } = require("langchain/chains");
-const { BufferMemory } = require("langchain/memory");
 // const { MongoDBChatMessageHistory } = require("langchain/stores/message/mongodb");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
